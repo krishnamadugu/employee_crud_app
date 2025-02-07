@@ -21,6 +21,10 @@ class AppTexts {
   static const String kCurrentEmployees = "Current employees";
   static const String kPreviousEmployees = "Previous employees";
   static const String kHiveBoxEmployees = "employees";
+  static const String kTodayValue = "Today";
+  static const String kNextMonday = "Next Monday";
+  static const String kNextTuesday = "Next Tuesday";
+  static const String kAfterWeek = "After 1 Week";
 
   ///miscellaneous text
   static const String kPlsInternetConnection =

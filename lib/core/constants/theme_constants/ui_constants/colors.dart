@@ -12,7 +12,7 @@ class AppColors {
   static final Color whiteColor = Color(0xffFAFAFA);
   static final Color paleWhiteColor = Color(0xffF2F2F2);
   static final Color blackColor = Color(0xff0A0A0A);
-  static final Color greyColor = Color(0xff777B7E);
+  static final Color greyColor = Color(0xff949C9E);
 
   /// misc colors
   static final Color warningColor = Color(0xffFF8800);

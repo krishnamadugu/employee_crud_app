@@ -1,6 +1,5 @@
 class AppAssetPaths {
   /// lottie file paths
-
   static const String kErrorLottiePath =
       "assets/lottie/misc_module/error_lottie.json";
 
@@ -13,4 +12,10 @@ class AppAssetPaths {
 
   static const String kNoEmployeeRecordFound =
       "assets/images/no_record_found.png";
+
+  /// svg  file paths
+
+  static const String kPersonIconSvg = "assets/svg/person_icon.svg";
+  static const String kCalendarIconSvg = "assets/svg/calendar_icon.svg";
+  static const String kRoleIconSvg = "assets/svg/role_icon.svg";
 }

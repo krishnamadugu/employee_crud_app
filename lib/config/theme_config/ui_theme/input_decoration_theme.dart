@@ -23,15 +23,19 @@ class AppInputDecorationTheme {
     disabledBorder: AppBorderTheme.kDefaultBorderTheme,
     enabledBorder: AppBorderTheme.kDefaultBorderTheme.copyWith(
       borderSide: BorderSide(color: AppColors.borderColor),
+      borderRadius: BorderRadius.circular(8.0),
     ),
     focusedBorder: AppBorderTheme.kDefaultBorderTheme.copyWith(
       borderSide: BorderSide(color: AppColors.borderColor),
+      borderRadius: BorderRadius.circular(8.0),
     ),
     focusedErrorBorder: AppBorderTheme.kDefaultBorderTheme.copyWith(
       borderSide: BorderSide(color: AppColors.errorBorderColor),
+      borderRadius: BorderRadius.circular(8.0),
     ),
     errorBorder: AppBorderTheme.kDefaultBorderTheme.copyWith(
       borderSide: BorderSide(color: AppColors.errorBorderColor),
+      borderRadius: BorderRadius.circular(8.0),
     ),
   );
 }
