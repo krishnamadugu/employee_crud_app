@@ -1,3 +1,5 @@
+import 'package:employee_info/feat/add_emp_details/view_model/add_emp_cubit.dart';
+import 'package:employee_info/feat/add_emp_details/view_model/calendar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -63,6 +65,9 @@ class HomeScreen extends StatelessWidget {
           context.pushNamed(RouteNames.addEmpScreen).then((value) {
             if (context.mounted) {
               context.read<EmployeeRecordBloc>().add(OnFetchEmpData());
+              context.read<AddEmpCubit>().setDefaultValues();
+              context.read<CalendarCubit>().setDefaultValues(isFromDate: true);
+              context.read<CalendarCubit>().setDefaultValues(isFromDate: false);
             }
           });
         },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/constants/theme_constants/ui_constants/colors.dart';
 import '../../../../../core/utils/common_widgets/text_widget.dart';
 import '../../../view_model/add_emp_cubit.dart';
 
@@ -11,6 +12,7 @@ void showDesignationBottomSheet({
   final addEmpCubit = context.read<AddEmpCubit>();
   showModalBottomSheet(
     context: context,
+    backgroundColor: AppColors.whiteColor,
     builder: (context) {
       return Container(
         padding: EdgeInsets.all(8),
@@ -26,6 +28,7 @@ void showDesignationBottomSheet({
             return GestureDetector(
               onTap: () {
                 addEmpCubit.selectedDesignationVal = item;
+                addEmpCubit.onDropDownValSelected(roleSelected: item);
                 Navigator.of(context).pop();
               },
               child: Padding(

@@ -48,8 +48,7 @@ class BottomActionWidget extends StatelessWidget {
             isBtnActive: true,
             btnText: AppTexts.kSave,
             onTapPressed: () {
-              context.read<AddEmpCubit>().onAddEmpBtnPressed();
-              context.pop(true);
+              context.read<AddEmpCubit>().onAddEmpBtnPressed(context);
             },
           ),
         ],

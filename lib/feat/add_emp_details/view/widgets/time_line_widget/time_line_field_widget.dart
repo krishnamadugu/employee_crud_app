@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/constants/app_constants/asset_paths.dart';
-import '../../../../../core/constants/app_constants/text_values.dart';
 import '../../../../../core/constants/theme_constants/ui_constants/colors.dart';
-import 'calendar_widget/calendar_dialog.dart';
 
 class TimeLineFieldWidget extends StatelessWidget {
   const TimeLineFieldWidget({
@@ -13,6 +11,7 @@ class TimeLineFieldWidget extends StatelessWidget {
     required FocusNode focusNode,
     required this.txtTheme,
     required this.hintText,
+    required this.onTapPressed,
     required TextEditingController date,
   })  : _fromFieldKey = fieldKey,
         _fromFocusNode = focusNode,
@@ -23,6 +22,7 @@ class TimeLineFieldWidget extends StatelessWidget {
   final TextTheme txtTheme;
   final TextEditingController _fromDate;
   final String hintText;
+  final void Function()? onTapPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,7 @@ class TimeLineFieldWidget extends StatelessWidget {
       style: txtTheme.bodyMedium?.copyWith(
         fontWeight: FontWeight.w400,
       ),
-      onTap: () async {
-        await showTimeLineCalendarDialog(
-          context: context,
-          isFromDate: hintText == AppTexts.kFromDate,
-        );
-      },
+      onTap: onTapPressed,
       controller: _fromDate,
       cursorHeight: 12.0,
       cursorColor: AppColors.greyColor,

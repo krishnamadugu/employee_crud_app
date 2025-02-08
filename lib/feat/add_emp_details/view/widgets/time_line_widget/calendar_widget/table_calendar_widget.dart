@@ -9,6 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../../../../core/constants/theme_constants/ui_constants/colors.dart';
 import '../../../../../../core/utils/common_widgets/text_widget.dart';
 import '../../../../view_model/calendar_cubit.dart';
+import '../../../../view_model/update_month_cubit.dart';
 
 class CustomCalendarWidget extends StatelessWidget {
   const CustomCalendarWidget({
@@ -23,6 +24,7 @@ class CustomCalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calendarCubit = context.read<CalendarCubit>();
+    final updateMonthCubit = context.read<UpdateMonthCubit>();
 
     return BlocBuilder<CalendarCubit, DateTime>(
       bloc: calendarCubit,
@@ -30,21 +32,25 @@ class CustomCalendarWidget extends StatelessWidget {
         return Column(
           spacing: 10.0,
           children: [
-            CalendarHeader(
-              focusedDay: calendarCubit.currentMonth,
-              clearButtonVisible: false,
-              onTodayButtonTap: () {},
-              onClearButtonTap: () {},
-              onLeftArrowTap: () {
-                calendarCubit.pageController.previousPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeOut,
-                );
-              },
-              onRightArrowTap: () {
-                calendarCubit.pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeOut,
+            BlocBuilder<UpdateMonthCubit, DateTime>(
+              builder: (context, state) {
+                return CalendarHeader(
+                  focusedDay: updateMonthCubit.currentMonth,
+                  clearButtonVisible: false,
+                  onTodayButtonTap: () {},
+                  onClearButtonTap: () {},
+                  onLeftArrowTap: () {
+                    calendarCubit.pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  },
+                  onRightArrowTap: () {
+                    calendarCubit.pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  },
                 );
               },
             ),
@@ -62,7 +68,7 @@ class CustomCalendarWidget extends StatelessWidget {
               onCalendarCreated: (controller) =>
                   calendarCubit.pageController = controller,
               onPageChanged: (focusedDay) {
-                calendarCubit.updateCurrentMonth(focusedDay);
+                updateMonthCubit.updateCurrentMonth(focusedDay);
               },
               onDaySelected: (selectedDay, focusedDay) {
                 calendarCubit.onCalendarDateSelected(
@@ -128,6 +134,7 @@ class CalendarHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
+          splashColor: AppColors.whiteColor,
           icon: Transform(
             alignment: Alignment.center,
             transform: Matrix4.rotationY(math.pi),
@@ -145,6 +152,7 @@ class CalendarHeader extends StatelessWidget {
               ),
         ),
         IconButton(
+          splashColor: AppColors.whiteColor,
           icon: Icon(
             Icons.play_arrow_rounded,
             color: AppColors.greyColor,

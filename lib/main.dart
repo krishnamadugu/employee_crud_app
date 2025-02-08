@@ -7,6 +7,7 @@ import 'config/theme_config/app_theme_config.dart';
 import 'core/constants/app_constants/text_values.dart';
 import 'feat/add_emp_details/view_model/add_emp_cubit.dart';
 import 'feat/add_emp_details/view_model/calendar_cubit.dart';
+import 'feat/add_emp_details/view_model/update_month_cubit.dart';
 import 'feat/home/view_model/emp_record_view_model/emp_record_bloc.dart';
 
 void main() async {
@@ -38,6 +39,11 @@ class MyApp extends StatelessWidget {
         /// add employee calendar cubit
         BlocProvider<CalendarCubit>(
           create: (BuildContext context) => CalendarCubit(),
+        ),
+
+        /// update current month cubit
+        BlocProvider<UpdateMonthCubit>(
+          create: (BuildContext context) => UpdateMonthCubit(),
         ),
       ],
       child: MaterialApp.router(

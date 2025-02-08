@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/constants/app_constants/text_values.dart';
+import '../../../core/utils/common_widgets/toast_msg.dart';
 
 class CalendarCubit extends Cubit<DateTime> {
   /// from date properties
@@ -20,7 +21,7 @@ class CalendarCubit extends Cubit<DateTime> {
   String selectedHeaderTypeVal = "";
 
   /// current selection properties
-  DateTime currentMonth = DateTime.now();
+
   DateTime joiningDate = DateTime.now();
   DateTime exitedDate = DateTime.now();
   String selectedDateValue = "";
@@ -31,12 +32,6 @@ class CalendarCubit extends Cubit<DateTime> {
   DateTime focusedDay = DateTime.now();
 
   CalendarCubit() : super(DateTime.now());
-
-  /// update currentMonth
-  void updateCurrentMonth(DateTime currMonth) {
-    currentMonth = currMonth;
-    emit(currentMonth);
-  }
 
   DateTime getNextDate(DateTime currentDate, int weekday) {
     int daysToAdd = (weekday - currentDate.weekday + 7) % 7;
@@ -77,7 +72,11 @@ class CalendarCubit extends Cubit<DateTime> {
       } else if (selectedHeaderType == AppTexts.kAfterWeek) {
         focusedDay = DateTime.now().add(Duration(days: 7));
       } else {
-        focusedDay = selectedDate;
+        if (selectedDate.day > exitedDate.day && toDate.text.isNotEmpty) {
+          showToastMsg("From Date Can't be less than To Date");
+        } else {
+          focusedDay = selectedDate;
+        }
       }
 
       selectedHeaderTypeVal = selectedHeaderType;
@@ -114,7 +113,11 @@ class CalendarCubit extends Cubit<DateTime> {
     if (isFromDate) {
       fromDate.text = formatter.format(joiningDate);
     } else {
-      toDate.text = formatter.format(exitedDate);
+      if (selectedHeaderTypeVal == AppTexts.kNoDate) {
+        toDate.text = "";
+      } else {
+        toDate.text = formatter.format(exitedDate);
+      }
     }
 
     emit(focusedDay);
