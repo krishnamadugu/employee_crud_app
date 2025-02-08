@@ -1,6 +1,7 @@
 import 'package:employee_info/core/constants/theme_constants/ui_constants/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/app_constants/text_values.dart';
 import 'time_line_field_widget.dart';
 
 class TimeLineWidget extends StatelessWidget {
@@ -41,10 +42,11 @@ class TimeLineWidget extends StatelessWidget {
           child: SizedBox(
             height: screenSize.height * 0.07,
             child: TimeLineFieldWidget(
-              fromFieldKey: _fromFieldKey,
-              fromFocusNode: _fromFocusNode,
+              fieldKey: _fromFieldKey,
+              focusNode: _fromFocusNode,
               txtTheme: txtTheme,
-              fromDate: _fromDate,
+              hintText: AppTexts.kFromDate,
+              date: _fromDate,
             ),
           ),
         ),
@@ -64,10 +66,11 @@ class TimeLineWidget extends StatelessWidget {
           child: SizedBox(
             height: screenSize.height * 0.07,
             child: TimeLineFieldWidget(
-              fromFieldKey: _toTextFieldKey,
-              fromFocusNode: _toFocusNode,
+              fieldKey: _toTextFieldKey,
+              focusNode: _toFocusNode,
               txtTheme: txtTheme,
-              fromDate: _toDate,
+              hintText: AppTexts.kToDate,
+              date: _toDate,
             ),
           ),
         ),

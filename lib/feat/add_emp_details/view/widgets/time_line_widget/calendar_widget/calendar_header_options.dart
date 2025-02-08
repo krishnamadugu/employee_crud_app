@@ -1,6 +1,7 @@
 import 'package:employee_info/core/constants/app_constants/text_values.dart';
+import 'package:employee_info/feat/add_emp_details/view_model/calendar_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bottom_action_widgets.dart';
 
@@ -8,81 +9,148 @@ class CalenderHeaderOptionsWidget extends StatelessWidget {
   const CalenderHeaderOptionsWidget({
     super.key,
     required this.txtTheme,
-    required this.isTodayBtnActive,
-    required this.isNextTuesdayActive,
-    required this.isNextMondayActive,
-    required this.isAfterOneWeekActive,
+    required this.isFromDate,
   });
 
   final TextTheme txtTheme;
-  final bool isTodayBtnActive;
-  final bool isNextMondayActive;
-  final bool isNextTuesdayActive;
-  final bool isAfterOneWeekActive;
+  final bool isFromDate;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 10.0,
-      children: [
-        /// today & monday headers
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          spacing: 18.0,
-          children: [
-            Expanded(
-              child: ActionButtonWidget(
-                txtTheme: txtTheme,
-                isBtnActive: isTodayBtnActive,
-                btnText: AppTexts.kTodayValue,
-                onTapPressed: () {
-                  context.pop();
-                },
-              ),
-            ),
-            Expanded(
-              child: ActionButtonWidget(
-                txtTheme: txtTheme,
-                isBtnActive: isNextMondayActive,
-                btnText: AppTexts.kNextMonday,
-                onTapPressed: () {
-                  context.pop();
-                },
-              ),
-            ),
-          ],
-        ),
+    final calendarCubit = context.read<CalendarCubit>();
 
-        /// tuesday & one week  headers
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          spacing: 18.0,
+    return BlocBuilder<CalendarCubit, DateTime>(
+      bloc: calendarCubit,
+      builder: (BuildContext context, state) {
+        return Column(
+          spacing: 10.0,
           children: [
-            Expanded(
-              child: ActionButtonWidget(
-                txtTheme: txtTheme,
-                isBtnActive: isNextTuesdayActive,
-                btnText: AppTexts.kNextTuesday,
-                onTapPressed: () {
-                  context.pop();
-                },
-              ),
-            ),
-            Expanded(
-              child: ActionButtonWidget(
-                txtTheme: txtTheme,
-                isBtnActive: isAfterOneWeekActive,
-                btnText: AppTexts.kAfterWeek,
-                onTapPressed: () {
-                  context.pop();
-                },
-              ),
-            ),
+            isFromDate
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 18.0,
+                    children: [
+                      Expanded(
+                        child: ActionButtonWidget(
+                          txtTheme: txtTheme,
+                          isBtnActive: calendarCubit.selectedHeaderTypeVal ==
+                              AppTexts.kTodayValue,
+                          btnText: AppTexts.kTodayValue,
+                          onTapPressed: () {
+                            /// on header option selected
+                            calendarCubit.onCalendarDateSelected(
+                              selectedHeaderType: AppTexts.kTodayValue,
+                              isFromDate: isFromDate,
+                              selectedDate: DateTime.now(),
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: ActionButtonWidget(
+                          txtTheme: txtTheme,
+                          isBtnActive: calendarCubit.selectedHeaderTypeVal ==
+                              AppTexts.kNextMonday,
+                          btnText: AppTexts.kNextMonday,
+                          onTapPressed: () {
+                            /// on header option selected
+                            calendarCubit.onCalendarDateSelected(
+                              selectedHeaderType: AppTexts.kNextMonday,
+                              isFromDate: isFromDate,
+                              selectedDate: DateTime.now(),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 18.0,
+                    children: [
+                      Expanded(
+                        child: ActionButtonWidget(
+                          txtTheme: txtTheme,
+                          isBtnActive: calendarCubit.selectedHeaderTypeVal ==
+                              AppTexts.kNoDate,
+                          btnText: AppTexts.kNoDate,
+                          onTapPressed: () {
+                            /// on header option selected
+                            calendarCubit.onCalendarDateSelected(
+                              selectedHeaderType: AppTexts.kNoDate,
+                              isFromDate: isFromDate,
+                              selectedDate: DateTime.now(),
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: ActionButtonWidget(
+                          txtTheme: txtTheme,
+                          isBtnActive: calendarCubit.selectedHeaderTypeVal ==
+                              AppTexts.kTodayValue,
+                          btnText: AppTexts.kTodayValue,
+                          onTapPressed: () {
+                            /// on header option selected
+                            calendarCubit.onCalendarDateSelected(
+                              selectedHeaderType: AppTexts.kTodayValue,
+                              isFromDate: isFromDate,
+                              selectedDate: DateTime.now(),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+            isFromDate
+                ?
+
+                /// tuesday & one week  headers
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 18.0,
+                    children: [
+                      Expanded(
+                        child: ActionButtonWidget(
+                          txtTheme: txtTheme,
+                          isBtnActive: calendarCubit.selectedHeaderTypeVal ==
+                              AppTexts.kNextTuesday,
+                          btnText: AppTexts.kNextTuesday,
+                          onTapPressed: () {
+                            /// on header option selected
+                            calendarCubit.onCalendarDateSelected(
+                              selectedHeaderType: AppTexts.kNextTuesday,
+                              isFromDate: isFromDate,
+                              selectedDate: DateTime.now(),
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: ActionButtonWidget(
+                          txtTheme: txtTheme,
+                          isBtnActive: calendarCubit.selectedHeaderTypeVal ==
+                              AppTexts.kAfterWeek,
+                          btnText: AppTexts.kAfterWeek,
+                          onTapPressed: () {
+                            /// on header option selected
+                            calendarCubit.onCalendarDateSelected(
+                              selectedHeaderType: AppTexts.kAfterWeek,
+                              isFromDate: isFromDate,
+                              selectedDate: DateTime.now(),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox.shrink(),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

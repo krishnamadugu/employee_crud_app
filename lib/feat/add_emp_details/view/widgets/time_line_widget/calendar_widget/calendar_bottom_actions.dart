@@ -1,4 +1,6 @@
+import 'package:employee_info/feat/add_emp_details/view_model/calendar_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/constants/app_constants/text_values.dart';
@@ -8,12 +10,16 @@ class CalendarActionsWidget extends StatelessWidget {
   const CalendarActionsWidget({
     super.key,
     required this.txtTheme,
+    required this.isFromDate,
   });
 
   final TextTheme txtTheme;
+  final bool isFromDate;
 
   @override
   Widget build(BuildContext context) {
+    final calendarCubit = context.read<CalendarCubit>();
+
     return Row(
       children: [
         Row(
@@ -26,6 +32,12 @@ class CalendarActionsWidget extends StatelessWidget {
               isBtnActive: false,
               btnText: AppTexts.kCancel,
               onTapPressed: () {
+                /*      /// setting values to default
+                calendarCubit.selectedDateValue = "";
+                calendarCubit.selectedHeaderTypeVal = AppTexts.kNoDate;
+                calendarCubit.focusedDay = DateTime.now();*/
+
+                /// popping the screen
                 context.pop();
               },
             ),
@@ -34,6 +46,9 @@ class CalendarActionsWidget extends StatelessWidget {
               isBtnActive: true,
               btnText: AppTexts.kSave,
               onTapPressed: () {
+                calendarCubit.onSaveBtnPressed(
+                  isFromDate: isFromDate,
+                );
                 context.pop();
               },
             ),

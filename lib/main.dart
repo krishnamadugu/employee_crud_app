@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'config/route_config/route_handler.dart';
 import 'config/theme_config/app_theme_config.dart';
 import 'core/constants/app_constants/text_values.dart';
+import 'feat/add_emp_details/view_model/add_emp_cubit.dart';
+import 'feat/add_emp_details/view_model/calendar_cubit.dart';
 import 'feat/home/view_model/emp_record_view_model/emp_record_bloc.dart';
 
 void main() async {
@@ -22,9 +24,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        /// employee record bloc
         BlocProvider<EmployeeRecordBloc>(
           create: (BuildContext context) =>
               EmployeeRecordBloc()..add(OnFetchEmpData()),
+        ),
+
+        /// add employee cubit
+        BlocProvider<AddEmpCubit>(
+          create: (BuildContext context) => AddEmpCubit(),
+        ),
+
+        /// add employee calendar cubit
+        BlocProvider<CalendarCubit>(
+          create: (BuildContext context) => CalendarCubit(),
         ),
       ],
       child: MaterialApp.router(

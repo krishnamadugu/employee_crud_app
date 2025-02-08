@@ -60,7 +60,11 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pushNamed(RouteNames.addEmpScreen);
+          context.pushNamed(RouteNames.addEmpScreen).then((value) {
+            if (context.mounted) {
+              context.read<EmployeeRecordBloc>().add(OnFetchEmpData());
+            }
+          });
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),

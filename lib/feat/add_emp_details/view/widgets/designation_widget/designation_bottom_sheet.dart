@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/common_widgets/text_widget.dart';
+import '../../../view_model/add_emp_cubit.dart';
 
 void showDesignationBottomSheet({
   required BuildContext context,
   required List<String> designations,
-  required String selectedString,
 }) {
+  final addEmpCubit = context.read<AddEmpCubit>();
   showModalBottomSheet(
     context: context,
     builder: (context) {
@@ -22,6 +24,10 @@ void showDesignationBottomSheet({
           itemBuilder: (context, index) {
             var item = designations[index];
             return GestureDetector(
+              onTap: () {
+                addEmpCubit.selectedDesignationVal = item;
+                Navigator.of(context).pop();
+              },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextWidget(
@@ -33,10 +39,6 @@ void showDesignationBottomSheet({
                   textAlign: TextAlign.center,
                 ),
               ),
-              onTap: () {
-                selectedString = item;
-                Navigator.of(context).pop();
-              },
             );
           },
         ),

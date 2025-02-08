@@ -21,6 +21,7 @@ dependencies:
   connectivity_plus: ^6.1.2
   dropdown_button2: ^2.3.9
   table_calendar: ^3.2.0
+  fluttertoast: ^8.2.11
   lottie: ^3.3.1
   hive: ^2.2.3
   flutter_svg: ^2.0.17

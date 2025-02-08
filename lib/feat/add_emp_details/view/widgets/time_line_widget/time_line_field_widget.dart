@@ -9,21 +9,24 @@ import 'calendar_widget/calendar_dialog.dart';
 class TimeLineFieldWidget extends StatelessWidget {
   const TimeLineFieldWidget({
     super.key,
-    required GlobalKey<FormState> fromFieldKey,
-    required FocusNode fromFocusNode,
+    required GlobalKey<FormState> fieldKey,
+    required FocusNode focusNode,
     required this.txtTheme,
-    required TextEditingController fromDate,
-  })  : _fromFieldKey = fromFieldKey,
-        _fromFocusNode = fromFocusNode,
-        _fromDate = fromDate;
+    required this.hintText,
+    required TextEditingController date,
+  })  : _fromFieldKey = fieldKey,
+        _fromFocusNode = focusNode,
+        _fromDate = date;
 
   final GlobalKey<FormState> _fromFieldKey;
   final FocusNode _fromFocusNode;
   final TextTheme txtTheme;
   final TextEditingController _fromDate;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
+    // final addEmpCubit = context.read<AddEmpCubit>();
     return TextFormField(
       key: _fromFieldKey,
       focusNode: _fromFocusNode,
@@ -34,14 +37,14 @@ class TimeLineFieldWidget extends StatelessWidget {
       onTap: () async {
         await showTimeLineCalendarDialog(
           context: context,
-          selectedDate: '',
+          isFromDate: hintText == AppTexts.kFromDate,
         );
       },
       controller: _fromDate,
       cursorHeight: 12.0,
       cursorColor: AppColors.greyColor,
       decoration: InputDecoration(
-        hintText: AppTexts.kFromDate,
+        hintText: hintText,
         hintStyle: txtTheme.bodyMedium?.copyWith(
           color: AppColors.hintTxtColor,
           fontWeight: FontWeight.w400,

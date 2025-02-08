@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:employee_info/core/constants/app_constants/text_values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -33,10 +34,12 @@ class DesignationsDropDownWidget extends StatelessWidget {
             TextWidget(
               txtVal: (selectedRole ?? "").isNotEmpty
                   ? selectedRole ?? ""
-                  : 'Select Role',
+                  : AppTexts.kSelectRole,
               textStyle: txtTheme.bodyMedium?.copyWith(
                 fontSize: 14,
-                color: AppColors.hintTxtColor,
+                color: (selectedRole ?? "").isNotEmpty
+                    ? AppColors.appTxtColor
+                    : AppColors.hintTxtColor,
               ),
             ),
           ],
