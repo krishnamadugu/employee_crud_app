@@ -21,27 +21,24 @@ class NoRecordFoundWidget extends StatelessWidget {
       alignment: Alignment.center,
       height: screenSize.height,
       width: screenSize.width,
-      child: ConstrainedBox(
-        constraints: defaultConstraints,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              AppAssetPaths.kNoEmployeeRecordFound,
-              fit: BoxFit.cover,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            AppAssetPaths.kNoEmployeeRecordFound,
+            fit: BoxFit.cover,
+          ),
+          TextWidget(
+            txtVal: AppTexts.kNoEmployeeRecordFound,
+            textStyle: txtTheme.labelLarge?.copyWith(
+              fontSize: 18.0,
+              fontWeight: FontWeight.w500,
             ),
-            TextWidget(
-              txtVal: AppTexts.kNoEmployeeRecordFound,
-              textStyle: txtTheme.labelLarge?.copyWith(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 10.0),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10.0),
+        ],
       ),
     );
   }

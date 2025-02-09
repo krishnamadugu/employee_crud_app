@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         /// theme and title properties
         title: AppTexts.kAppTitle,
         theme: AppThemeConfig.lightTheme,
-        darkTheme: AppThemeConfig.darkTheme,
+        darkTheme: AppThemeConfig.lightTheme,
 
         /// router properties
         routerConfig: RouteHandler.router,
