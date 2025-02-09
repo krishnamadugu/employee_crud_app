@@ -49,12 +49,14 @@ class RouteHandler {
 
       /// edit emp screen
       GoRoute(
-        path: RouteNames.editEmpScreen,
+        path: "${RouteNames.editEmpScreen}/:empId",
         name: RouteNames.editEmpScreen,
         pageBuilder: (context, state) => buildPageWithDefaultTransition(
           context: context,
           state: state,
-          child: EditEmpDetailsScreen(),
+          child: EditEmpDetailsScreen(
+            empId: state.pathParameters['empId'] ?? "",
+          ),
         ),
       ),
 
