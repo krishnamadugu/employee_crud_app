@@ -6,5 +6,6 @@ class OnFetchEmpData extends EmpRecordEvent {}
 
 class OnRecordDeleteEvent extends EmpRecordEvent {
   final String id;
-  OnRecordDeleteEvent({required this.id});
+  final BuildContext context;
+  OnRecordDeleteEvent({required this.id, required this.context});
 }

@@ -7,6 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_constants/text_values.dart';
+import '../../../../core/constants/theme_constants/ui_constants/colors.dart';
+import '../../../../core/services/storage_service/hive_storage/hive_boxes.dart';
 import '../../../../core/utils/common_widgets/app_bar_widget.dart';
 import '../../../home/model/emp_model/employee_model.dart';
 import '../../../home/view_model/emp_record_view_model/emp_record_bloc.dart';
@@ -55,7 +57,28 @@ class EditEmpDetailsScreen extends StatelessWidget {
                 padding: EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
                   onTap: () {
-                    empRecordBloc.add(OnRecordDeleteEvent(id: empId));
+                    final previousEmpItem =
+                        AppHiveBoxes.employeesBox.get(empId);
+
+                    empRecordBloc
+                        .add(OnRecordDeleteEvent(id: empId, context: context));
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Employee data has been deleted"),
+                        action: SnackBarAction(
+                          label: 'Undo',
+                          textColor: AppColors.appThemeColor,
+                          onPressed: () {
+                            AppHiveBoxes.employeesBox.put(
+                              empId,
+                              previousEmpItem!,
+                            );
+                          },
+                        ),
+                      ),
+                    );
+
                     context.pop(true);
                   },
                   child: SvgPicture.asset(
