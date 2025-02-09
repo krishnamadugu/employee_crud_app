@@ -1,6 +1,9 @@
+import 'package:employee_info/core/constants/app_constants/asset_paths.dart';
 import 'package:employee_info/feat/home/view_model/emp_record_view_model/emp_record_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/constants/app_constants/text_values.dart';
 import '../../../../../core/constants/theme_constants/ui_constants/colors.dart';
@@ -43,11 +46,38 @@ class EmpRecordsFoundWidget extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       var emp = state.currEmpRecords[index];
-                      return EmployeeCardWidget(
-                        txtTheme: txtTheme,
-                        empName: emp.name,
-                        designation: emp.designation,
-                        empTimePeriod: 'From ${emp.fromDate}',
+                      return Slidable(
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          extentRatio: 0.2,
+                          children: [
+                            CustomSlidableAction(
+                              onPressed: (context) {
+                                context.read<EmployeeRecordBloc>().add(
+                                      OnRecordDeleteEvent(
+                                        id: emp.id,
+                                      ),
+                                    );
+                              },
+                              backgroundColor: AppColors.errorColor,
+                              foregroundColor: Colors.white,
+                              child: SvgPicture.asset(
+                                AppAssetPaths.kTrashIconSvg,
+                                height: 20,
+                                width: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        child: SizedBox(
+                          width: screenSize.width,
+                          child: EmployeeCardWidget(
+                            txtTheme: txtTheme,
+                            empName: emp.name,
+                            designation: emp.designation,
+                            empTimePeriod: 'From ${emp.fromDate}',
+                          ),
+                        ),
                       );
                     },
                   )
@@ -91,11 +121,39 @@ class EmpRecordsFoundWidget extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       var emp = state.prevEmpRecords[index];
-                      return EmployeeCardWidget(
-                        txtTheme: txtTheme,
-                        empName: emp.name,
-                        designation: emp.designation,
-                        empTimePeriod: 'From ${emp.fromDate} - ${emp.toDate}',
+                      return Slidable(
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          extentRatio: 0.2,
+                          children: [
+                            CustomSlidableAction(
+                              onPressed: (context) {
+                                context.read<EmployeeRecordBloc>().add(
+                                      OnRecordDeleteEvent(
+                                        id: emp.id,
+                                      ),
+                                    );
+                              },
+                              backgroundColor: AppColors.errorColor,
+                              foregroundColor: Colors.white,
+                              child: SvgPicture.asset(
+                                AppAssetPaths.kTrashIconSvg,
+                                height: 20,
+                                width: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        child: SizedBox(
+                          width: screenSize.width,
+                          child: EmployeeCardWidget(
+                            txtTheme: txtTheme,
+                            empName: emp.name,
+                            designation: emp.designation,
+                            empTimePeriod:
+                                'From ${emp.fromDate} - ${emp.toDate}',
+                          ),
+                        ),
                       );
                     },
                   )

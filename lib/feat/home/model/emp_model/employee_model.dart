@@ -12,11 +12,14 @@ class EmployeeModel {
   final String fromDate;
   @HiveField(3)
   final String toDate;
+  @HiveField(4)
+  final String id;
 
   const EmployeeModel({
     required this.name,
     required this.designation,
     required this.fromDate,
     required this.toDate,
+    required this.id,
   });
 }

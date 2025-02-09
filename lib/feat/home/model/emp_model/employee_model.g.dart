@@ -21,13 +21,14 @@ class EmployeeModelAdapter extends TypeAdapter<EmployeeModel> {
       designation: fields[1] as String,
       fromDate: fields[2] as String,
       toDate: fields[3] as String,
+      id: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, EmployeeModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class EmployeeModelAdapter extends TypeAdapter<EmployeeModel> {
       ..writeByte(2)
       ..write(obj.fromDate)
       ..writeByte(3)
-      ..write(obj.toDate);
+      ..write(obj.toDate)
+      ..writeByte(4)
+      ..write(obj.id);
   }
 
   @override

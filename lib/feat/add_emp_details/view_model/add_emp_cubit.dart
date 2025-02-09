@@ -4,6 +4,7 @@ import 'package:employee_info/feat/add_emp_details/view_model/calendar_cubit.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../home/model/emp_model/employee_model.dart';
 
@@ -33,25 +34,29 @@ class AddEmpCubit extends Cubit<EmployeeModel> {
           designation: "",
           fromDate: "",
           toDate: "",
+          id: "",
         ));
 
   /// on add emp btn selected
   void onAddEmpBtnPressed(BuildContext context) {
-    if (context.read<CalendarCubit>().fromDate.text.isEmpty) {
-      showToastMsg("Please enter from date");
+    if (empName.text.isEmpty) {
+      showToastMsg("Please enter employee name");
     } else if (selectedDesignationVal.isEmpty) {
       showToastMsg("Please choose your designation");
-    } else if (empName.text.isEmpty) {
-      showToastMsg("Please enter employee name");
+    } else if (context.read<CalendarCubit>().fromDate.text.isEmpty) {
+      showToastMsg("Please enter from date");
     } else {
       String joiningDate = context.read<CalendarCubit>().fromDate.text;
       String exitedDate = context.read<CalendarCubit>().toDate.text;
+
+      String uuid = Uuid().v4();
 
       var emp = EmployeeModel(
         name: empName.text,
         designation: selectedDesignationVal,
         fromDate: joiningDate,
         toDate: exitedDate,
+        id: uuid,
       );
 
       AppDatabase.instance.saveEmployee(emp);
@@ -63,11 +68,13 @@ class AddEmpCubit extends Cubit<EmployeeModel> {
   void setDefaultValues() {
     empName.text = "";
     selectedDesignationVal = "";
+
     var emp = EmployeeModel(
       name: empName.text,
       designation: selectedDesignationVal,
       fromDate: "",
       toDate: "",
+      id: "",
     );
     emit(emp);
   }
@@ -82,11 +89,14 @@ class AddEmpCubit extends Cubit<EmployeeModel> {
     String exitedDate =
         exitedDateTime == null ? "" : formatter.format(exitedDateTime!);
 
+    String uuid = Uuid().v4();
+
     var emp = EmployeeModel(
       name: empName.text,
       designation: selectedDesignationVal,
       fromDate: joiningDate,
       toDate: exitedDate,
+      id: uuid,
     );
 
     emit(emp);

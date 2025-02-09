@@ -18,4 +18,5 @@ class AppAssetPaths {
   static const String kPersonIconSvg = "assets/svg/person_icon.svg";
   static const String kCalendarIconSvg = "assets/svg/calendar_icon.svg";
   static const String kRoleIconSvg = "assets/svg/role_icon.svg";
+  static const String kTrashIconSvg = "assets/svg/trash_icon.svg";
 }

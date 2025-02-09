@@ -22,7 +22,7 @@ class AppDatabase {
 
   Future<void> saveEmployee(EmployeeModel employee) async {
     await AppHiveBoxes.employeesBox.put(
-      "${employee.name}_${DateTime.now()}",
+      employee.id,
       employee,
     );
 
